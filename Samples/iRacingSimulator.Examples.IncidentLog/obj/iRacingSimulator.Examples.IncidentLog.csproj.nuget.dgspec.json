@@ -1,39 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj": {}
+    "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj": {}
   },
   "projects": {
-    "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+    "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
+        "projectUniqueName": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
         "projectName": "iRacingSdkWrapper",
-        "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
-        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\obj\\",
+        "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
+        "packagesPath": "C:\\Users\\tibi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tibi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.telerik.com/nuget": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
-                "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
+              "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
+                "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
               }
             }
           }
@@ -42,10 +39,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "YamlDotNet.NetCore": {
               "target": "Package",
@@ -58,7 +61,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -67,40 +71,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
+    "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
+        "projectUniqueName": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
         "projectName": "iRacingSimulator",
-        "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
-        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSimulator\\obj\\",
+        "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
+        "packagesPath": "C:\\Users\\tibi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSimulator\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tibi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net7.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.telerik.com/nuget": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net7.0-windows7.0": {
+            "targetAlias": "net7.0-windows",
             "projectReferences": {
-              "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
-                "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
+              "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+                "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
               }
             }
           }
@@ -109,10 +110,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net7.0-windows7.0": {
+          "targetAlias": "net7.0-windows",
           "dependencies": {
             "Microsoft.CSharp": {
               "target": "Package",
@@ -129,7 +136,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -141,37 +149,34 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
+    "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
+        "projectUniqueName": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
         "projectName": "iRSDKSharp",
-        "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
-        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\irsdkSharp\\obj\\",
+        "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
+        "packagesPath": "C:\\Users\\tibi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\irsdkSharp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tibi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.telerik.com/nuget": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -179,17 +184,24 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -198,43 +210,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj": {
+    "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
+        "projectUniqueName": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
         "projectName": "iRacingSimulator.Examples.IncidentLog",
-        "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
-        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\obj\\",
+        "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
+        "packagesPath": "C:\\Users\\tibi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\Samples\\iRacingSimulator.Examples.IncidentLog\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tibi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net7.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Public\\Documents\\Infragistics\\NuGet\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.telerik.com/nuget": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net7.0-windows7.0": {
+            "targetAlias": "net7.0-windows",
             "projectReferences": {
-              "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
-                "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
+              "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+                "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
               },
-              "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
-                "projectPath": "C:\\Users\\david\\Source\\Repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj"
+              "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
+                "projectPath": "C:\\Users\\tibi\\source\\repos\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj"
               }
             }
           }
@@ -243,10 +252,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net7.0-windows7.0": {
+          "targetAlias": "net7.0-windows",
           "dependencies": {
             "Microsoft.CSharp": {
               "target": "Package",
@@ -263,7 +278,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -275,7 +291,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -154,10 +154,11 @@ namespace iRacingSdkWrapper
 
             if (_looper != null)
             {
-                _looper.Abort();
+                _looper.Interrupt();
             }
 
             _looper = new Thread(Loop);
+            _looper.IsBackground = true;
             _looper.Start();
         }
 
@@ -311,7 +312,7 @@ namespace iRacingSdkWrapper
                     Thread.Sleep(ConnectSleepTime);
                 }
             }
-        
+            
             sdk.Shutdown();
             _DriverId = -1;
             _IsConnected = false;
