@@ -4,6 +4,12 @@ using System.Diagnostics;
 using System.Threading;
 using iRSDKSharp;
 using iRacingSdkWrapper.Broadcast;
+using YamlDotNet.Serialization.NodeDeserializers;
+using YamlDotNet.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using iRacingSdkWrapper.JsonModels;
 
 namespace iRacingSdkWrapper
 {
@@ -270,13 +276,14 @@ namespace iRacingSdkWrapper
                         lastUpdate = newUpdate;
 
                         // Get the session info string
-                        var sessionInfo = sdk.GetSessionInfo();
+                        var yamlSessionInfo = sdk.GetSessionInfo();
+
+                        string jsonSessionInfo = TransformIntoJSON(yamlSessionInfo);
 
                         // Raise the SessionInfoUpdated event and pass along the session info and session time.
-                        var sessionArgs = new SessionInfoUpdatedEventArgs(sessionInfo, time);
+                        var sessionArgs = new SessionInfoUpdatedEventArgs(jsonSessionInfo, time);
                         this.RaiseEvent(OnSessionInfoUpdated, sessionArgs);
                     }
-
 
                 }
                 else if (_hasConnected)
@@ -316,6 +323,43 @@ namespace iRacingSdkWrapper
             sdk.Shutdown();
             _DriverId = -1;
             _IsConnected = false;
+        }
+
+        private static string TransformIntoJSON(string sessionInfo)
+        {
+            var deserializer = new DeserializerBuilder().Build();
+
+            var yamlObject = deserializer.Deserialize<Dictionary<string, object>>(sessionInfo);
+
+            var drivers = ((Dictionary<object, object>)yamlObject["DriverInfo"])["Drivers"];
+
+            ((Dictionary<object, object>)yamlObject["DriverInfo"]).Remove("Drivers");
+
+            var player = yamlObject["DriverInfo"];
+
+            var sessions = ((Dictionary<object, object>)yamlObject["SessionInfo"])["Sessions"];
+
+            var sectors = ((Dictionary<object, object>)yamlObject["SplitTimeInfo"])["Sectors"];
+
+            var sortedItems = new
+            {
+                WeekendInfo = yamlObject["WeekendInfo"],
+                Sessions = sessions,
+                Drivers = drivers,
+                Player = player,
+                Sectors = sectors
+            };
+
+            var jsonOptions = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
+                NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            };
+
+            string jsonSessionInfo = JsonSerializer.Serialize(sortedItems, jsonOptions);
+
+            return jsonSessionInfo;
         }
 
         #endregion
@@ -424,9 +468,9 @@ namespace iRacingSdkWrapper
 
         public class SessionInfoUpdatedEventArgs : SdkUpdateEventArgs
         {
-            public SessionInfoUpdatedEventArgs(string sessionInfo, double time) : base(time)
+            public SessionInfoUpdatedEventArgs(string jsonSessionInfo, double time) : base(time)
             {
-                _SessionInfo = new SessionInfo(sessionInfo, time);
+                _SessionInfo = new SessionInfo(jsonSessionInfo, time);
             }
 
             private readonly SessionInfo _SessionInfo;

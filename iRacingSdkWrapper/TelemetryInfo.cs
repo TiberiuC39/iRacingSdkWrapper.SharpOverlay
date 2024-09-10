@@ -556,5 +556,36 @@ namespace iRacingSdkWrapper
         public TelemetryValue<TrackSurfaces> PlayerTrackSurface { get { return new TelemetryValue<TrackSurfaces>(sdk, "PlayerTrackSurface"); } }
 
         public TelemetryValue<int> PlayerCarIdx { get { return new TelemetryValue<int>(sdk, "PlayerCarIdx"); } }
+
+        
+        public TelemetryValue<double> SessionLapsRemaining
+            => new TelemetryValue<double>(sdk, "SessionLapsRemainEx");
+        
+        public TelemetryValue<float> LapLastLapTime
+            => new TelemetryValue<float>(sdk, "LapLastLapTime");
+
+        public TelemetryValue<float> LapLastNLapTime
+            => new TelemetryValue<float>(sdk, "LapLastNLapTime");
+        
+        public TelemetryValue<bool> IsOnPitRoad =>
+            new TelemetryValue<bool>(sdk, "OnPitRoad");
+
+        public TelemetryValue<bool> IsPitstopActive =>
+            new TelemetryValue<bool>(sdk, "PitstopActive");
+
+        public TelemetryValue<double> PitOptRepairLeft =>
+            new TelemetryValue<double>(sdk, "PitOptRepairLeft");
+
+        public TelemetryValue<double> PitRepairLeft =>
+            new TelemetryValue<double>(sdk, "PitRepairLeft");
+        
+        public TelemetryValue<float> FuelUsePerHour =>
+            new TelemetryValue<float>(sdk, "FuelUsePerHour");
+        
+        public TelemetryValue<bool> WeatherDeclaredWet
+            => new TelemetryValue<bool>(sdk, "WeatherDeclaredWet");
+
+        public TelemetryValue<int> TrackWetness
+            => new TelemetryValue<int>(sdk, "TrackWetness");
     }
 }

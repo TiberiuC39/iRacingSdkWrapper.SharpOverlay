@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,40 +52,8 @@ namespace iRacingSimulator.Examples.IncidentLog
 
         private void OnSessionInfoUpdated(object sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
         {
-            UpdateIncidents(e);
             SaveSessionInfo(e);
-        }
-
-        private void UpdateIncidents(SdkWrapper.SessionInfoUpdatedEventArgs e)
-        {
-            var type = Sim.Instance.SessionData.SessionType[0].ToString();
-            var time = e.UpdateTime;
-
-            var oldDict = _drivers.ToDictionary(driver => driver.Id);
-            var newDict = Sim.Instance.Drivers.ToDictionary(driver => driver.Id);
-
-            _drivers.Clear();
-
-            foreach (var kvp in newDict)
-            {
-                var id = kvp.Key;
-                var driver = kvp.Value;
-
-                var prevInc = 0;
-                if (oldDict.ContainsKey(id))
-                {
-                    prevInc = oldDict[id].CurrentResults.Incidents;
-                }
-
-                var delta = driver.CurrentResults.Incidents - prevInc;
-                if (delta > 0)
-                {
-                    _incidents.Add(new Incident(driver, type, time, delta));
-                }
-
-                _drivers.Add(driver);
-            }
-        }
+        }       
 
         private void SaveSessionInfo(SdkWrapper.SessionInfoUpdatedEventArgs e)
         {
@@ -92,7 +61,13 @@ namespace iRacingSimulator.Examples.IncidentLog
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
             var path = Path.Combine(dir, $"sessioninfo_{e.UpdateTime.ToString("0")}.txt");
-            File.WriteAllText(path, e.SessionInfo.Yaml);
+
+            var sessionInfo = JsonSerializer.Serialize(e.SessionInfo, new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+            });
+
+            File.WriteAllText(path, sessionInfo);
         }
     }
 }

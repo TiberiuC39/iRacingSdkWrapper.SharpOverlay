@@ -50,25 +50,23 @@ namespace iRacingSimulator
         {
             this.Track = Track.FromSessionInfo(info);
 
-            var weekend = info["WeekendInfo"];
-            this.SubsessionId = Parser.ParseInt(weekend["SubSessionID"].GetValue());
-            this.EventType = weekend["EventType"].GetValue();
+            var weekend = info.WeekendInfo;
+            this.SubsessionId = weekend.SubSessionID;
+            this.EventType = weekend.EventType;
 
-            var session = info["SessionInfo"]["Sessions"]["SessionNum", Sim.Instance.CurrentSessionNumber];
-            this.SessionType = session["SessionType"].GetValue();
+            var session = info.Sessions[Sim.Instance.CurrentSessionNumber ?? info.Sessions.Count - 1];
+            this.SessionType = session.SessionType;
 
-            this.TrackUsageText = session["SessionTrackRubberState"].GetValue();
+            this.TrackUsageText = session.SessionTrackRubberState;
             this.TrackUsage = TrackConditions.TrackUsageFromString(this.TrackUsageText);
             
-            this.TrackCleanup = weekend["TrackCleanup"].GetValue() == "1"; 
-            this.DynamicTrack = weekend["TrackDynamicTrack"].GetValue() == "1";
-
-            var laps = session["SessionLaps"].GetValue();
-            var time = Parser.ParseSec(session["SessionTime"].GetValue());
+            this.TrackCleanup = weekend.TrackCleanup == 1; 
+            this.DynamicTrack = weekend.TrackDynamicTrack == 1;
             
-            this.RaceLaps = laps;
-            this.RaceTime = time;
+            this.RaceLaps = session.SessionLaps;
+            this.RaceTime = session.SessionTime;
         }
+
 
         public void Update(TelemetryInfo telemetry)
         {

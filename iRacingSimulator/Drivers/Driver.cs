@@ -1,7 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using iRacingSdkWrapper;
+using System;
 using System.Linq;
-using iRacingSdkWrapper;
 
 namespace iRacingSimulator.Drivers
 {
@@ -71,81 +70,70 @@ namespace iRacingSimulator.Drivers
         public void ParseDynamicSessionInfo(SessionInfo info)
         {
             // Parse only session info that could have changed (driver dependent)
-            var query = info["DriverInfo"]["Drivers"]["CarIdx", this.Id];
+            //var query = info["DriverInfo"]["Drivers"]["CarIdx", this.Id];
 
-            this.Name = query["UserName"].GetValue("");
-            this.CustId = Parser.ParseInt(query["UserID"].GetValue("0"));
-            this.ShortName = query["AbbrevName"].GetValue();
+            //this.Name = query["UserName"].GetValue("");
+            //this.CustId = Parser.ParseInt(query["UserID"].GetValue("0"));
+            //this.ShortName = query["AbbrevName"].GetValue();
 
-            this.IRating = Parser.ParseInt(query["IRating"].GetValue());
-            var licenseLevel = Parser.ParseInt(query["LicLevel"].GetValue());
-            var licenseSublevel = Parser.ParseInt(query["LicSubLevel"].GetValue());
-            var licenseColor = Parser.ParseColor(query["LicColor"].GetValue());
-            this.License = new License(licenseLevel, licenseSublevel, licenseColor);
+            //this.IRating = Parser.ParseInt(query["IRating"].GetValue());
+            //var licenseLevel = Parser.ParseInt(query["LicLevel"].GetValue());
+            //var licenseSublevel = Parser.ParseInt(query["LicSubLevel"].GetValue());
+            //var licenseColor = Parser.ParseColor(query["LicColor"].GetValue());
+            //this.License = new License(licenseLevel, licenseSublevel, licenseColor);
 
-            this.IsSpectator = Parser.ParseInt(query["IsSpectator"].GetValue()) == 1;
+            //this.IsSpectator = Parser.ParseInt(query["IsSpectator"].GetValue()) == 1;
 
-            this.HelmetDesign = query["HelmetDesignStr"].GetValue();
-            this.CarDesign = query["CarDesignStr"].GetValue();
-            this.SuitDesign = query["SuitDesignStr"].GetValue();
-            this.CarNumberDesign = query["CarNumberDesignStr"].GetValue();
-            this.CarSponsor1 = query["CarSponsor_1"].GetValue();
-            this.CarSponsor2 = query["CarSponsor_2"].GetValue();
-            this.ClubName = query["ClubName"].GetValue();
-            this.DivisionName = query["DivisionName"].GetValue();
+            //this.HelmetDesign = query["HelmetDesignStr"].GetValue();
+            //this.CarDesign = query["CarDesignStr"].GetValue();
+            //this.SuitDesign = query["SuitDesignStr"].GetValue();
+            //this.CarNumberDesign = query["CarNumberDesignStr"].GetValue();
+            //this.CarSponsor1 = query["CarSponsor_1"].GetValue();
+            //this.CarSponsor2 = query["CarSponsor_2"].GetValue();
+            //this.ClubName = query["ClubName"].GetValue();
+            //this.DivisionName = query["DivisionName"].GetValue();
         }
 
         public void ParseStaticSessionInfo(SessionInfo info)
         {
             // Parse only static session info that never changes (car dependent)
-            var query = info["DriverInfo"]["Drivers"]["CarIdx", this.Id];
+            //var query = info["DriverInfo"]["Drivers"]["CarIdx", this.Id];
             
-            this.TeamId = Parser.ParseInt(query["TeamID"].GetValue());
-            this.TeamName = query["TeamName"].GetValue();
+            //this.TeamId = Parser.ParseInt(query["TeamID"].GetValue());
+            //this.TeamName = query["TeamName"].GetValue();
 
-            this.Car.CarId = Parser.ParseInt(query["CarID"].GetValue());
-            this.Car.CarNumber = query["CarNumber"].GetValue();
-            this.Car.CarNumberRaw = Parser.ParseInt(query["CarNumberRaw"].GetValue());
-            this.Car.CarName = query["CarScreenName"].GetValue();
-            this.Car.CarClassId = Parser.ParseInt(query["CarClassID"].GetValue());
-            this.Car.CarClassRelSpeed = Parser.ParseInt(query["CarClassRelSpeed"].GetValue());
-            this.Car.CarClassColor = Parser.ParseColor(query["CarClassColor"].GetValue());
-            this.Car.CarClassShortName = query["CarClassShortName"].GetValue();
-            this.Car.CarShortName = query["CarScreenNameShort"].GetValue();
-            this.Car.CarPath = query["CarPath"].GetValue();
+            //this.Car.CarId = Parser.ParseInt(query["CarID"].GetValue());
+            //this.Car.CarNumber = query["CarNumber"].GetValue();
+            //this.Car.CarNumberRaw = Parser.ParseInt(query["CarNumberRaw"].GetValue());
+            //this.Car.CarName = query["CarScreenName"].GetValue();
+            //this.Car.CarClassId = Parser.ParseInt(query["CarClassID"].GetValue());
+            //this.Car.CarClassRelSpeed = Parser.ParseInt(query["CarClassRelSpeed"].GetValue());
+            //this.Car.CarClassColor = Parser.ParseColor(query["CarClassColor"].GetValue());
+            //this.Car.CarClassShortName = query["CarClassShortName"].GetValue();
+            //this.Car.CarShortName = query["CarScreenNameShort"].GetValue();
+            //this.Car.CarPath = query["CarPath"].GetValue();
 
-            this.IsPacecar = this.CustId == -1 || this.Car.CarName == PACECAR_NAME;
+            //this.IsPacecar = this.CustId == -1 || this.Car.CarName == PACECAR_NAME;
         }
 
         public static Driver FromSessionInfo(SessionInfo info, int carIdx)
         {
-            var query = info["DriverInfo"]["Drivers"]["CarIdx", carIdx];
+            //var query = info["DriverInfo"]["Drivers"]["CarIdx", carIdx];
 
-            string name;
-            if (!query["UserName"].TryGetValue(out name))
-            {
-                // Driver not found
-                return null;
-            }
+            //string name;
+            //if (!query["UserName"].TryGetValue(out name))
+            //{
+            //    // Driver not found
+            //    return null;
+            //}
 
             var driver = new Driver();
-            driver.Id = carIdx;
-            driver.ParseStaticSessionInfo(info);
-            driver.ParseDynamicSessionInfo(info);
+            //driver.Id = carIdx;
+            //driver.ParseStaticSessionInfo(info);
+            //driver.ParseDynamicSessionInfo(info);
 
             return driver;
-        }
-
-        internal void UpdateResultsInfo(int sessionNumber, YamlQuery query, int position)
-        {
-            this.Results.SetResults(sessionNumber, query, position);
-            this.CurrentResults = this.Results.Current;
-        }
-
-        internal void UpdateQualyResultsInfo(YamlQuery query, int position)
-        {
-            this.QualyResults.ParseYaml(query, position);
-        }
+        }        
 
         internal void UpdateLiveInfo(TelemetryInfo e)
         {

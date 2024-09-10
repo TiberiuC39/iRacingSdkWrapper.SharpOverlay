@@ -5,6 +5,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="16.1.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -13,8 +16,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\irsdkSharp\iRSDKSharp.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="YamlDotNet.NetCore" Version="1.0.0" />
   </ItemGroup>
 </Project>

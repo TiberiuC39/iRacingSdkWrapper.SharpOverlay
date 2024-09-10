@@ -28,35 +28,35 @@ namespace iRacingSimulator
         {
             var track = new Track();
 
-            var query = info["WeekendInfo"];
-            track.Id = Parser.ParseInt(query["TrackID"].GetValue());
-            track.Name = query["TrackDisplayName"].GetValue();
-            track.CodeName = query["TrackName"].GetValue();
-            track.Length = Parser.ParseTrackLength(query["TrackLength"].GetValue());
-            track.NightMode = query["WeekendOptions"]["NightMode"].GetValue() == "1";
+            //var query = info["WeekendInfo"];
+            //track.Id = Parser.ParseInt(query["TrackID"].GetValue());
+            //track.Name = query["TrackDisplayName"].GetValue();
+            //track.CodeName = query["TrackName"].GetValue();
+            //track.Length = Parser.ParseTrackLength(query["TrackLength"].GetValue());
+            //track.NightMode = query["WeekendOptions"]["NightMode"].GetValue() == "1";
 
-            // Parse sectors
-            track.Sectors.Clear();
-            query = info["SplitTimeInfo"]["Sectors"];
+            //// Parse sectors
+            //track.Sectors.Clear();
+            //query = info["SplitTimeInfo"]["Sectors"];
 
-            int nr = 0;
-            while (nr >= 0)
-            {
-                var pctString = query["SectorNum", nr]["SectorStartPct"].GetValue();
-                float pct;
-                if (string.IsNullOrWhiteSpace(pctString) || !float.TryParse(pctString, NumberStyles.AllowDecimalPoint, 
-                    CultureInfo.InvariantCulture, out pct))
-                {
-                    break;
-                }
+            //int nr = 0;
+            //while (nr >= 0)
+            //{
+            //    var pctString = query["SectorNum", nr]["SectorStartPct"].GetValue();
+            //    float pct;
+            //    if (string.IsNullOrWhiteSpace(pctString) || !float.TryParse(pctString, NumberStyles.AllowDecimalPoint, 
+            //        CultureInfo.InvariantCulture, out pct))
+            //    {
+            //        break;
+            //    }
 
-                var sector = new Sector();
-                sector.Number = nr;
-                sector.StartPercentage = pct;
-                track.Sectors.Add(sector);
+            //    var sector = new Sector();
+            //    sector.Number = nr;
+            //    sector.StartPercentage = pct;
+            //    track.Sectors.Add(sector);
 
-                nr++;
-            }
+            //    nr++;
+            //}
 
             return track;
         }

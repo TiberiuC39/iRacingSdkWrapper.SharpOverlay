@@ -174,92 +174,92 @@ namespace iRacingSimulator
             if (_isUpdatingDrivers) return;
             if (_currentSessionNumber == null) return;
 
-            this.GetQualyResults(info);
+            //this.GetQualyResults(info);
             this.GetRaceResults(info);
         }
 
         private void GetQualyResults(SessionInfo info)
         {
-            // TODO: stop if qualy is finished
-            var query =
-                info["QualifyResultsInfo"]["Results"];
+            //// TODO: stop if qualy is finished
+            //var query =
+            //    info["QualifyResultsInfo"]["Results"];
 
-            for (int position = 0; position < _drivers.Count; position++)
-            {
-                var positionQuery = query["Position", position];
+            //for (int position = 0; position < _drivers.Count; position++)
+            //{
+            //    var positionQuery = query["Position", position];
 
-                string idValue;
-                if (!positionQuery["CarIdx"].TryGetValue(out idValue))
-                {
-                    // Driver not found
-                    continue;
-                }
+            //    string idValue;
+            //    if (!positionQuery["CarIdx"].TryGetValue(out idValue))
+            //    {
+            //        // Driver not found
+            //        continue;
+            //    }
 
-                // Find driver and update results
-                int id = int.Parse(idValue);
+            //    // Find driver and update results
+            //    int id = int.Parse(idValue);
 
-                var driver = _drivers.SingleOrDefault(d => d.Id == id);
-                if (driver != null)
-                {
-                    driver.UpdateQualyResultsInfo(positionQuery, position);
-                }
-            }
+            //    var driver = _drivers.SingleOrDefault(d => d.Id == id);
+            //    if (driver != null)
+            //    {
+            //        driver.UpdateQualyResultsInfo(positionQuery, position);
+            //    }
+            //}
         }
 
         private void GetRaceResults(SessionInfo info)
         {
-            var query =
-                info["SessionInfo"]["Sessions"]["SessionNum", _currentSessionNumber]["ResultsPositions"];
+            //var query =
+            //    info["SessionInfo"]["Sessions"]["SessionNum", _currentSessionNumber]["ResultsPositions"];
 
-            for (int position = 1; position <= _drivers.Count; position++)
-            {
-                var positionQuery = query["Position", position];
+            //for (int position = 1; position <= _drivers.Count; position++)
+            //{
+            //    var positionQuery = query["Position", position];
 
-                string idValue;
-                if (!positionQuery["CarIdx"].TryGetValue(out idValue))
-                {
-                    // Driver not found
-                    continue;
-                }
+            //    string idValue;
+            //    if (!positionQuery["CarIdx"].TryGetValue(out idValue))
+            //    {
+            //        // Driver not found
+            //        continue;
+            //    }
 
-                // Find driver and update results
-                int id = int.Parse(idValue);
+            //    // Find driver and update results
+            //    int id = int.Parse(idValue);
 
-                var driver = _drivers.SingleOrDefault(d => d.Id == id);
-                if (driver != null)
-                {
-                    var previousPosition = driver.Results.Current.ClassPosition;
+            //    var driver = _drivers.SingleOrDefault(d => d.Id == id);
+            //    if (driver != null)
+            //    {
+            //        var previousPosition = driver.Results.Current.ClassPosition;
 
-                    driver.UpdateResultsInfo(_currentSessionNumber.Value, positionQuery, position);
+            //        driver.UpdateResultsInfo(_currentSessionNumber.Value, positionQuery, position);
 
-                    if (_telemetry != null)
-                    {
-                        // Check for new leader
-                        if (previousPosition > 1 && driver.Results.Current.ClassPosition == 1)
-                        {
-                            var e = new NewLeaderRaceEvent();
-                            e.Driver = driver;
-                            e.SessionTime = _telemetry.SessionTime.Value;
-                            e.Lap = driver.Live.Lap;
+            //        if (_telemetry != null)
+            //        {
+            //            // Check for new leader
+            //            if (previousPosition > 1 && driver.Results.Current.ClassPosition == 1)
+            //            {
+            //                var e = new NewLeaderRaceEvent();
+            //                e.Driver = driver;
+            //                e.SessionTime = _telemetry.SessionTime.Value;
+            //                e.Lap = driver.Live.Lap;
 
-                            this.OnRaceEvent(e);
-                        }
+            //                this.OnRaceEvent(e);
+            //            }
 
-                        // Check for new best lap
-                        var bestlap = _sessionData.UpdateFastestLap(driver.CurrentResults.FastestTime, driver);
-                        if (bestlap != null)
-                        {
-                            var e = new BestLapRaceEvent();
-                            e.Driver = driver;
-                            e.BestLap = bestlap;
-                            e.SessionTime = _telemetry.SessionTime.Value;
-                            e.Lap = driver.Live.Lap;
+            //            // Check for new best lap
+            //            var bestlap = _sessionData.UpdateFastestLap(driver.CurrentResults.FastestTime, driver);
+            //            if (bestlap != null)
+            //            {
+            //                var e = new BestLapRaceEvent();
+            //                e.Driver = driver;
+            //                e.BestLap = bestlap;
+            //                e.SessionTime = _telemetry.SessionTime.Value;
+            //                e.Lap = driver.Live.Lap;
 
-                            this.OnRaceEvent(e);
-                        }
-                    }
-                }
-            }
+            //                this.OnRaceEvent(e);
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void ResetSession()
