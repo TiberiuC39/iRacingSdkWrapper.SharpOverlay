@@ -8,6 +8,11 @@
         public string Initials { get; set; }
         public int UserID { get; set; }
         public int TeamID { get; set; }
+        public int CarClassID { get; set; }
+        public string CarClassColor { get; set; }
+        public double CarClassMaxFuelPct { get; set; }
+        public int CarID { get; set; }
+        public int CarNumber { get; set; }
         public string TeamName { get; set; }
         public int IRating { get; set; }
         public int LicLevel { get; set; }

@@ -38,17 +38,7 @@ namespace iRacingSimulator.Drivers
             return _sessions.ContainsKey(sessionNumber);
         }
 
-        internal void SetResults(int sessionNumber, YamlQuery query, int position)
-        {
-            if (!this.HasResult(sessionNumber))
-            {
-                _sessions.Add(sessionNumber, new DriverSessionResults(_driver, sessionNumber));
-            }
-            _currentSessionNumber = sessionNumber;
-            var results = this[sessionNumber];
-
-            results.ParseYaml(query, position);
-        }
+        
 
         /// <summary>
         /// Gets the session results for this driver for the specified session number, or empty results if he does not appear in the results.
@@ -150,38 +140,6 @@ namespace iRacingSimulator.Drivers
         public string OutReason { get; set; }
         public int OutReasonId { get; set; }
         public bool IsOut { get { return this.OutReasonId != 0; } }
-
-        internal void ParseYaml(YamlQuery query, int position)
-        {
-            this.IsEmpty = false;
-
-            this.Position = position;
-            this.ClassPosition = Parser.ParseInt(query["ClassPosition"].GetValue()) + 1;
-
-            this.Lap = Parser.ParseInt(query["Lap"].GetValue());
-            this.Time = new Laptime(Parser.ParseFloat(query["Time"].GetValue()));
-            this.FastestLap = Parser.ParseInt(query["FastestLap"].GetValue());
-            this.FastestTime = new Laptime(Parser.ParseFloat(query["FastestTime"].GetValue()));
-            this.LastTime = new Laptime(Parser.ParseFloat(query["LastTime"].GetValue()));
-            this.LapsLed = Parser.ParseInt(query["LapsLed"].GetValue());
-
-            var previousLaps = this.LapsComplete;
-            this.LapsComplete = Parser.ParseInt(query["LapsComplete"].GetValue());
-            this.LapsDriven = Parser.ParseInt(query["LapsDriven"].GetValue());
-
-            this.FastestTime.LapNumber = this.FastestLap;
-            this.LastTime.LapNumber = this.LapsComplete;
-
-            // Check if a new lap is completed, and add it to Laps
-            if (this.LapsComplete > previousLaps)
-            {
-                this.Laps.Add(this.LastTime);
-                this.AverageTime = this.Laps.Average();
-            }
-
-            this.Incidents = Parser.ParseInt(query["Incidents"].GetValue());;
-            this.OutReasonId = Parser.ParseInt(query["ReasonOutId"].GetValue());
-            this.OutReason = query["ReasonOutStr"].GetValue();
-        }
+        
     }
 }

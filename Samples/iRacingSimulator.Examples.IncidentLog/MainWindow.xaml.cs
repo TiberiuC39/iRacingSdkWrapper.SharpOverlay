@@ -50,12 +50,12 @@ namespace iRacingSimulator.Examples.IncidentLog
             Sim.Instance.Start();
         }
 
-        private void OnSessionInfoUpdated(object sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
+        private void OnSessionInfoUpdated(object sender, SdkWrapper.SessionUpdatedEventArgs e)
         {
             SaveSessionInfo(e);
         }       
 
-        private void SaveSessionInfo(SdkWrapper.SessionInfoUpdatedEventArgs e)
+        private void SaveSessionInfo(SdkWrapper.SessionUpdatedEventArgs e)
         {
             var dir = "output";
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);

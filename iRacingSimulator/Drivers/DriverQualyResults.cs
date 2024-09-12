@@ -22,14 +22,6 @@ namespace iRacingSimulator.Drivers
 
         public int Position { get; set; }
         public int ClassPosition { get; set; }
-        public Laptime Lap { get; set; }
-
-        internal void ParseYaml(YamlQuery query, int position)
-        {
-            this.Position = position + 1;
-            this.ClassPosition = Parser.ParseInt(query["ClassPosition"].GetValue()) + 1;
-            this.Lap = new Laptime(Parser.ParseFloat(query["FastestTime"].GetValue()));
-            this.Lap.LapNumber = Parser.ParseInt(query["FastestLap"].GetValue());
-        }
+        public Laptime Lap { get; set; }        
     }
 }

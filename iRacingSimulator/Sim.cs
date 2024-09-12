@@ -37,7 +37,7 @@ namespace iRacingSimulator
             _sdk.Connected += SdkOnConnected;
             _sdk.Disconnected += SdkOnDisconnected;
             _sdk.TelemetryUpdated += SdkOnTelemetryUpdated;
-            _sdk.SessionInfoUpdated += SdkOnSessionInfoUpdated;
+            _sdk.SessionUpdated += SdkOnSessionInfoUpdated;
         }
 
         #region Properties
@@ -428,7 +428,7 @@ namespace iRacingSimulator
 
         #region Events
 
-        private void SdkOnSessionInfoUpdated(object sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
+        private void SdkOnSessionInfoUpdated(object sender, SdkWrapper.SessionUpdatedEventArgs e)
         {
             Debug.WriteLine($"SdkOnSessionInfoUpdated: {e.UpdateTime}");
 
@@ -520,7 +520,7 @@ namespace iRacingSimulator
         public event EventHandler Connected;
         public event EventHandler Disconnected;
         public event EventHandler StaticInfoChanged;
-        public event EventHandler<SdkWrapper.SessionInfoUpdatedEventArgs> SessionInfoUpdated;
+        public event EventHandler<SdkWrapper.SessionUpdatedEventArgs> SessionInfoUpdated;
         public event EventHandler<SdkWrapper.TelemetryUpdatedEventArgs> TelemetryUpdated;
         public event EventHandler SimulationUpdated;
         public event EventHandler<RaceEventArgs> RaceEvent;
@@ -540,7 +540,7 @@ namespace iRacingSimulator
             if (this.StaticInfoChanged != null) this.StaticInfoChanged(this, EventArgs.Empty);
         }
 
-        protected virtual void OnSessionInfoUpdated(SdkWrapper.SessionInfoUpdatedEventArgs e)
+        protected virtual void OnSessionInfoUpdated(SdkWrapper.SessionUpdatedEventArgs e)
         {
             if (this.SessionInfoUpdated != null) this.SessionInfoUpdated(this, e);
         }

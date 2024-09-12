@@ -204,8 +204,8 @@ namespace iRacingSdkWrapper
         {
             var sessionInfo = sdk.GetSessionInfo();
             var time = (double) sdk.GetData("SessionTime");
-            var sessionArgs = new SessionInfoUpdatedEventArgs(sessionInfo, time);
-            this.RaiseEvent(OnSessionInfoUpdated, sessionArgs);
+            var sessionArgs = new SessionUpdatedEventArgs(sessionInfo, time);
+            this.RaiseEvent(OnSessionUpdated, sessionArgs);
         }
         
         private object TryGetSessionNum()
@@ -281,8 +281,8 @@ namespace iRacingSdkWrapper
                         string jsonSessionInfo = TransformIntoJSON(yamlSessionInfo);
 
                         // Raise the SessionInfoUpdated event and pass along the session info and session time.
-                        var sessionArgs = new SessionInfoUpdatedEventArgs(jsonSessionInfo, time);
-                        this.RaiseEvent(OnSessionInfoUpdated, sessionArgs);
+                        var sessionArgs = new SessionUpdatedEventArgs(jsonSessionInfo, time);
+                        this.RaiseEvent(OnSessionUpdated, sessionArgs);
                     }
 
                 }
@@ -374,7 +374,7 @@ namespace iRacingSdkWrapper
         /// <summary>
         /// Event raised when the sim refreshes the session info (few times per minute).
         /// </summary>
-        public event EventHandler<SessionInfoUpdatedEventArgs> SessionInfoUpdated;
+        public event EventHandler<SessionUpdatedEventArgs> SessionUpdated;
 
         /// <summary>
         /// Event raised when the SDK detects the sim for the first time.
@@ -404,9 +404,9 @@ namespace iRacingSdkWrapper
             }
         }
 
-        private void OnSessionInfoUpdated(SessionInfoUpdatedEventArgs e)
+        private void OnSessionUpdated(SessionUpdatedEventArgs e)
         {
-            var handler = this.SessionInfoUpdated;
+            var handler = this.SessionUpdated;
             if (handler != null) handler(this, e);
         }
 
@@ -466,9 +466,9 @@ namespace iRacingSdkWrapper
             public double UpdateTime { get { return _UpdateTime; } }
         }
 
-        public class SessionInfoUpdatedEventArgs : SdkUpdateEventArgs
+        public class SessionUpdatedEventArgs : SdkUpdateEventArgs
         {
-            public SessionInfoUpdatedEventArgs(string jsonSessionInfo, double time) : base(time)
+            public SessionUpdatedEventArgs(string jsonSessionInfo, double time) : base(time)
             {
                 _SessionInfo = new SessionInfo(jsonSessionInfo, time);
             }

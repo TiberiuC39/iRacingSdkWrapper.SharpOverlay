@@ -587,5 +587,8 @@ namespace iRacingSdkWrapper
 
         public TelemetryValue<int> TrackWetness
             => new TelemetryValue<int>(sdk, "TrackWetness");
+
+        public TelemetryValue<CarLeftRight> CarLeftRight
+            => new TelemetryValue<CarLeftRight>(sdk, "CarLeftRight");
     }
 }
