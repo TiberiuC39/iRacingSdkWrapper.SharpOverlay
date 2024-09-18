@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using iRacingSdkWrapper.Utilities;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace iRacingSdkWrapper.JsonModels
@@ -15,9 +16,15 @@ namespace iRacingSdkWrapper.JsonModels
         public float DriverCarIdleRPM { get; set; }
         public float DriverCarRedLine { get; set; }
         public int DriverCarEngCylinderCount { get; set; }
-        public float DriverCarFuelKgPerLtr { get; set; }
-        public float DriverCarFuelMaxLtr { get; set; }
-        public float DriverCarMaxFuelPct { get; set; }
+
+        [JsonConverter(typeof(JsonNumericConverter))]
+        public double DriverCarFuelKgPerLtr { get; set; }
+
+        [JsonConverter(typeof(JsonNumericConverter))]
+        public double DriverCarFuelMaxLtr { get; set; }
+
+        [JsonConverter(typeof(JsonNumericConverter))]
+        public double DriverCarMaxFuelPct { get; set; }
         public int DriverCarGearNumForward { get; set; }
         public int DriverCarGearNeutral { get; set; }
         public int DriverCarGearReverse { get; set; }

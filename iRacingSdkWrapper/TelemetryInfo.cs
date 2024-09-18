@@ -590,5 +590,8 @@ namespace iRacingSdkWrapper
 
         public TelemetryValue<CarLeftRight> CarLeftRight
             => new TelemetryValue<CarLeftRight>(sdk, "CarLeftRight");
+
+        public TelemetryValue<int> EnterExitReset
+            => new TelemetryValue<int>(sdk, "EnterExitReset");
     }
 }

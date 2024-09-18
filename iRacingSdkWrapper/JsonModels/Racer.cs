@@ -1,4 +1,7 @@
-﻿namespace iRacingSdkWrapper.JsonModels
+﻿using iRacingSdkWrapper.Utilities;
+using System.Text.Json.Serialization;
+
+namespace iRacingSdkWrapper.JsonModels
 {
     public class Racer
     {
@@ -10,6 +13,8 @@
         public int TeamID { get; set; }
         public int CarClassID { get; set; }
         public string CarClassColor { get; set; }
+
+        [JsonConverter(typeof(JsonNumericConverter))]
         public double CarClassMaxFuelPct { get; set; }
         public int CarID { get; set; }
         public int CarNumber { get; set; }
