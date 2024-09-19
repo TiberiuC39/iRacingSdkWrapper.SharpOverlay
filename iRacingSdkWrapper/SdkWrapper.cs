@@ -202,9 +202,8 @@ namespace iRacingSdkWrapper
         /// </summary>
         public void RequestSessionInfoUpdate()
         {
-            var sessionInfo = sdk.GetSessionInfo();
-            var time = (double) sdk.GetData("SessionTime");
-            var sessionArgs = new SessionUpdatedEventArgs(sessionInfo, time);
+            var sessionArgs = GetSessionInfoWithoutEvent();
+
             this.RaiseEvent(OnSessionUpdated, sessionArgs);
         }
         
@@ -360,6 +359,18 @@ namespace iRacingSdkWrapper
             string jsonSessionInfo = JsonSerializer.Serialize(sortedItems, jsonOptions);
 
             return jsonSessionInfo;
+        }
+
+        public SessionUpdatedEventArgs GetSessionInfoWithoutEvent()
+        {
+            var sessionInfo = sdk.GetSessionInfo();
+            var time = (double)sdk.GetData("SessionTime");
+
+            string jsonSessionInfo = TransformIntoJSON(sessionInfo);
+
+            var sessionArgs = new SessionUpdatedEventArgs(jsonSessionInfo, time);
+
+            return sessionArgs;
         }
 
         #endregion
