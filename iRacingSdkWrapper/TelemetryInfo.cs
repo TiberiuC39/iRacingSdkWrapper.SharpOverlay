@@ -558,8 +558,8 @@ namespace iRacingSdkWrapper
         public TelemetryValue<int> PlayerCarIdx { get { return new TelemetryValue<int>(sdk, "PlayerCarIdx"); } }
 
         
-        public TelemetryValue<double> SessionLapsRemaining
-            => new TelemetryValue<double>(sdk, "SessionLapsRemainEx");
+        public TelemetryValue<int> SessionLapsRemaining
+            => new TelemetryValue<int>(sdk, "SessionLapsRemainEx");
         
         public TelemetryValue<float> LapLastLapTime
             => new TelemetryValue<float>(sdk, "LapLastLapTime");
