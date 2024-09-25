@@ -558,9 +558,12 @@ namespace iRacingSdkWrapper
         public TelemetryValue<int> PlayerCarIdx { get { return new TelemetryValue<int>(sdk, "PlayerCarIdx"); } }
 
         
-        public TelemetryValue<int> SessionLapsRemaining
+        public TelemetryValue<int> SessionLapsRemainingEx
             => new TelemetryValue<int>(sdk, "SessionLapsRemainEx");
-        
+
+        public TelemetryValue<int> SessionLapsRemaining
+            => new TelemetryValue<int>(sdk, "SessionLapsRemain");
+
         public TelemetryValue<float> LapLastLapTime
             => new TelemetryValue<float>(sdk, "LapLastLapTime");
 
@@ -593,5 +596,14 @@ namespace iRacingSdkWrapper
 
         public TelemetryValue<int> EnterExitReset
             => new TelemetryValue<int>(sdk, "EnterExitReset");
+
+        public TelemetryValue<double[]> CarIdxLastLapTime
+            => new TelemetryValue<double[]>(sdk, "CarIdxLastLapTime");
+
+        public TelemetryValue<double[]> CarIdxBestLapTime
+            => new TelemetryValue<double[]>(sdk, "CarIdxBestLapTime");
+
+        public TelemetryValue<double[]> CarClassEstLapTime
+            => new TelemetryValue<double[]>(sdk, "CarClassEstLapTime");
     }
 }
