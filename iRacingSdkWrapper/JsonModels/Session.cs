@@ -22,7 +22,7 @@ namespace iRacingSdkWrapper.JsonModels
 
         public List<DriverPosition> ResultsPositions { get; set; }
 
-        public List<FastestLapDTO> ResultsFastestLap { get; set; }
+        public List<FastestLap> ResultsFastestLap { get; set; }
         public double ResultsAverageLapTime { get; set; }
         public int ResultsNumCautionFlags { get; set; }
         public int ResultsNumCautionLaps { get; set; }

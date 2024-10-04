@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace iRacingSdkWrapper.Utilities
 {
@@ -19,7 +15,7 @@ namespace iRacingSdkWrapper.Utilities
             }
             catch (JsonException ex)
             {
-                return 9999999;
+                return 9999;
             }
 
         }

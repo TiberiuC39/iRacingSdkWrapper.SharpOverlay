@@ -597,13 +597,16 @@ namespace iRacingSdkWrapper
         public TelemetryValue<int> EnterExitReset
             => new TelemetryValue<int>(sdk, "EnterExitReset");
 
-        public TelemetryValue<double[]> CarIdxLastLapTime
-            => new TelemetryValue<double[]>(sdk, "CarIdxLastLapTime");
+        public TelemetryValue<float[]> CarIdxLastLapTime
+            => new TelemetryValue<float[]>(sdk, "CarIdxLastLapTime");
 
         public TelemetryValue<double[]> CarIdxBestLapTime
             => new TelemetryValue<double[]>(sdk, "CarIdxBestLapTime");
 
         public TelemetryValue<double[]> CarClassEstLapTime
             => new TelemetryValue<double[]>(sdk, "CarClassEstLapTime");
+
+        public TelemetryValue<int[]> CarIdxClass
+            => new TelemetryValue<int[]>(sdk, "CarIdxClass");
     }
 }

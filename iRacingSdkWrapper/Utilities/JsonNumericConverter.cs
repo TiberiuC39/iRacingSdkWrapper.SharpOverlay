@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace iRacingSdkWrapper.Utilities
 {
@@ -22,7 +18,16 @@ namespace iRacingSdkWrapper.Utilities
 
         public override double Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            string value = reader.GetString();
+            string value = string.Empty;
+
+            if (reader.TokenType == JsonTokenType.Number)
+            {
+                value = reader.ValueSequence.ToString();
+            }
+            else
+            {
+                value = reader.GetString();
+            }
 
             var regExMatch = _regex.Match(value);
 
