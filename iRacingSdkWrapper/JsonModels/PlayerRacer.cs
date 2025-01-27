@@ -17,13 +17,13 @@ namespace iRacingSdkWrapper.JsonModels
         public float DriverCarRedLine { get; set; }
         public int DriverCarEngCylinderCount { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double DriverCarFuelKgPerLtr { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double DriverCarFuelMaxLtr { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double DriverCarMaxFuelPct { get; set; }
         public int DriverCarGearNumForward { get; set; }
         public int DriverCarGearNeutral { get; set; }

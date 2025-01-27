@@ -18,7 +18,8 @@ namespace iRacingSdkWrapper
         {
             var sessionInfo = JsonSerializer.Deserialize<SessionInfo>(jsonSessionInfo, new JsonSerializerOptions()
             {
-                NumberHandling = JsonNumberHandling.AllowReadingFromString
+                NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                
             });
 
             WeekendInfo = sessionInfo.WeekendInfo;
@@ -35,6 +36,7 @@ namespace iRacingSdkWrapper
         public List<Racer> Drivers { get; set; }
         public PlayerRacer Player { get; set; }
         public List<Sector> Sectors { get; set; }
+        public List<QualifyResults> QualifyResults { get; set; }
 
         [JsonIgnore]
         public double UpdateTime { get; set; }

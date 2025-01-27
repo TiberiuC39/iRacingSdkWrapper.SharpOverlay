@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace iRacingSdkWrapper.Utilities
 {
-    public class SessionTimeJsonConverter : JsonNumericConverter
+    public class SessionTimeJsonConverter : JsonDoubleConverter
     {
         public override double Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -17,7 +17,6 @@ namespace iRacingSdkWrapper.Utilities
             {
                 return 9999;
             }
-
         }
     }
 }

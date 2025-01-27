@@ -14,9 +14,11 @@ namespace iRacingSdkWrapper.JsonModels
         public int CarClassID { get; set; }
         public string CarClassColor { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double CarClassMaxFuelPct { get; set; }
         public int CarID { get; set; }
+
+        [JsonConverter(typeof(JsonIntConverter))]
         public int CarNumber { get; set; }
         public string TeamName { get; set; }
         public int IRating { get; set; }

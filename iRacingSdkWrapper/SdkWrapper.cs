@@ -1,15 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Threading;
+﻿using iRacingSdkWrapper.Broadcast;
 using iRSDKSharp;
-using iRacingSdkWrapper.Broadcast;
-using YamlDotNet.Serialization.NodeDeserializers;
-using YamlDotNet.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Collections.Generic;
-using iRacingSdkWrapper.JsonModels;
+using System.Threading;
+using YamlDotNet.Serialization;
 
 namespace iRacingSdkWrapper
 {
@@ -51,6 +48,28 @@ namespace iRacingSdkWrapper
             this.Chat = new ChatControl(this);
             this.Textures = new TextureControl(this);
             this.TelemetryRecording = new TelemetryRecordingControl(this);
+        }
+
+        public SdkWrapper(string filePath)
+        {
+            this.context = SynchronizationContext.Current;
+            this.sdk = new iRacingSDK(filePath);
+            this.EventRaiseType = EventRaiseTypes.CurrentThread;
+
+            readMutex = new Mutex(false);
+
+            this.TelemetryUpdateFrequency = 60;
+            this.ConnectSleepTime = 1000;
+            _DriverId = -1;
+
+            this.Replay = new ReplayControl(this);
+            this.Camera = new CameraControl(this);
+            this.PitCommands = new PitCommandControl(this);
+            this.Chat = new ChatControl(this);
+            this.Textures = new TextureControl(this);
+            this.TelemetryRecording = new TelemetryRecordingControl(this);
+
+            Start();
         }
 
         #region Properties
@@ -202,7 +221,9 @@ namespace iRacingSdkWrapper
         /// </summary>
         public void RequestSessionInfoUpdate()
         {
-            var sessionArgs = GetSessionInfoWithoutEvent();
+            var sessionInfo = GetSessionInfoWithoutEvent();
+
+            var sessionArgs = new SessionUpdatedEventArgs(sessionInfo);
 
             this.RaiseEvent(OnSessionUpdated, sessionArgs);
         }
@@ -324,6 +345,11 @@ namespace iRacingSdkWrapper
             _IsConnected = false;
         }
 
+        /// <summary>
+        /// Transforms the YAML Session Info string from the simulator to a JSON string.
+        /// </summary>
+        /// <param name="sessionInfo"></param>
+        /// <returns></returns>
         private static string TransformIntoJSON(string sessionInfo)
         {
             var deserializer = new DeserializerBuilder().Build();
@@ -338,12 +364,29 @@ namespace iRacingSdkWrapper
 
             var sessions = ((Dictionary<object, object>)yamlObject["SessionInfo"])["Sessions"];
 
+            object qualifyResults = null;
+
+            if (yamlObject.ContainsKey("QualifyResultsInfo"))
+            {
+                qualifyResults = ((Dictionary<object, object>)yamlObject["QualifyResultsInfo"])?["Results"];
+            }
+            
+            //try
+            //{
+            //    qualifyResults = ((Dictionary<object, object>)yamlObject["QualifyResultsInfo"])?["Results"];
+            //}
+            //catch (KeyNotFoundException)
+            //{
+
+            //}            
+
             var sectors = ((Dictionary<object, object>)yamlObject["SplitTimeInfo"])["Sectors"];
 
             var sortedItems = new
             {
                 WeekendInfo = yamlObject["WeekendInfo"],
                 Sessions = sessions,
+                QualifyResults = qualifyResults,
                 Drivers = drivers,
                 Player = player,
                 Sectors = sectors
@@ -361,16 +404,33 @@ namespace iRacingSdkWrapper
             return jsonSessionInfo;
         }
 
-        public SessionUpdatedEventArgs GetSessionInfoWithoutEvent()
+        /// <summary>
+        /// Get the current Session Info without raising any events.
+        /// </summary>
+        /// <returns></returns>
+        public SessionInfo GetSessionInfoWithoutEvent()
         {
-            var sessionInfo = sdk.GetSessionInfo();
-            var time = (double)sdk.GetData("SessionTime");
+            string sessionInfoString = sdk.GetSessionInfo();
 
-            string jsonSessionInfo = TransformIntoJSON(sessionInfo);
+            string jsonSessionInfo = TransformIntoJSON(sessionInfoString);
 
-            var sessionArgs = new SessionUpdatedEventArgs(jsonSessionInfo, time);
+            double time = (double) sdk.GetData("SessionTime");
 
-            return sessionArgs;
+            var sessionInfo = new SessionInfo(jsonSessionInfo, time); 
+
+            return sessionInfo;
+        }
+
+        /// <summary>
+        /// Manually request telemetryInfo without raising events.
+        /// Useful for getting non changable information like PlayerCarClass on connection.
+        /// </summary>
+        /// <returns>Current telemetry data.</returns>
+        public TelemetryInfo GetTelemetryInfoWithoutEvent()
+        {
+            var telemetry = new TelemetryInfo(sdk);
+
+            return telemetry;
         }
 
         #endregion
@@ -482,6 +542,12 @@ namespace iRacingSdkWrapper
             public SessionUpdatedEventArgs(string jsonSessionInfo, double time) : base(time)
             {
                 _SessionInfo = new SessionInfo(jsonSessionInfo, time);
+            }
+
+            public SessionUpdatedEventArgs(SessionInfo sessionInfo)
+                :base(sessionInfo.UpdateTime)
+            {
+                _SessionInfo = sessionInfo;
             }
 
             private readonly SessionInfo _SessionInfo;

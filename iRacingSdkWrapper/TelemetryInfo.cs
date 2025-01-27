@@ -257,17 +257,24 @@ namespace iRacingSdkWrapper
         /// </summary>
         public TelemetryValue<float> Throttle { get { return new TelemetryValue<float>(sdk, "Throttle"); } }
 
+        public TelemetryValue<float> ThrottleRaw => new TelemetryValue<float>(sdk, "ThrottleRaw");
 
         /// <summary>
         /// 0=brake released to 1=max pedal force. Unit: %
         /// </summary>
         public TelemetryValue<float> Brake { get { return new TelemetryValue<float>(sdk, "Brake"); } }
 
+        public TelemetryValue<float> BrakeRaw => new TelemetryValue<float>(sdk, "BrakeRaw");
+
+        public TelemetryValue<bool> BrakeABSactive => new TelemetryValue<bool>(sdk, "BrakeABSactive");
+
+        public TelemetryValue<float> BrakeABSCutPct => new TelemetryValue<float>(sdk, "BrakeABSCutPct");
 
         /// <summary>
         /// 0=disengaged to 1=fully engaged. Unit: %
         /// </summary>
         public TelemetryValue<float> Clutch { get { return new TelemetryValue<float>(sdk, "Clutch"); } }
+        public TelemetryValue<float> ClutchRaw => new TelemetryValue<float>(sdk, "ClutchRaw");
 
 
         /// <summary>
@@ -341,6 +348,7 @@ namespace iRacingSdkWrapper
         /// </summary>
         public TelemetryValue<float> YawRate { get { return new TelemetryValue<float>(sdk, "YawRate"); } }
 
+        public TelemetryValue<float> YawNorth { get { return new TelemetryValue<float>(sdk, "YawNorth"); } }
 
         /// <summary>
         /// GPS vehicle speed. Unit: m/s
@@ -547,25 +555,35 @@ namespace iRacingSdkWrapper
 
         public TelemetryValue<float> WindVel { get { return new TelemetryValue<float>(sdk, "WindVel"); } }
 
-        public TelemetryValue<int> PlayerCarTeamIncidentCount { get { return new TelemetryValue<int>(sdk, "PlayerCarTeamIncidentCount"); } }
+        #region Player 
 
-        public TelemetryValue<int> PlayerCarMyIncidentCount { get { return new TelemetryValue<int>(sdk, "PlayerCarMyIncidentCount"); } }
+        public TelemetryValue<int> PlayerCarClassPosition => new TelemetryValue<int>(sdk, nameof(PlayerCarClassPosition));
 
-        public TelemetryValue<int> PlayerCarDriverIncidentCount { get { return new TelemetryValue<int>(sdk, "PlayerCarDriverIncidentCount"); } }
+        public TelemetryValue<bool> PlayerCarInPitStall => new TelemetryValue<bool>(sdk, nameof(PlayerCarInPitStall));
 
-        public TelemetryValue<TrackSurfaces> PlayerTrackSurface { get { return new TelemetryValue<TrackSurfaces>(sdk, "PlayerTrackSurface"); } }
+        public TelemetryValue<double> PlayerCarPowerAdjust => new TelemetryValue<double>(sdk, nameof(PlayerCarPowerAdjust));
 
-        public TelemetryValue<int> PlayerCarIdx { get { return new TelemetryValue<int>(sdk, "PlayerCarIdx"); } }
+        public TelemetryValue<int> PlayerCarClass => new TelemetryValue<int>(sdk, nameof(PlayerCarClass));
 
-        
-        public TelemetryValue<int> SessionLapsRemainingEx
-            => new TelemetryValue<int>(sdk, "SessionLapsRemainEx");
+        public TelemetryValue<int> PlayerCarTeamIncidentCount => new TelemetryValue<int>(sdk, nameof(PlayerCarTeamIncidentCount));
 
-        public TelemetryValue<int> SessionLapsRemaining
-            => new TelemetryValue<int>(sdk, "SessionLapsRemain");
+        public TelemetryValue<int> PlayerCarMyIncidentCount => new TelemetryValue<int>(sdk, nameof(PlayerCarMyIncidentCount));
 
-        public TelemetryValue<float> LapLastLapTime
-            => new TelemetryValue<float>(sdk, "LapLastLapTime");
+        public TelemetryValue<int> PlayerCarDriverIncidentCount => new TelemetryValue<int>(sdk, nameof(PlayerCarDriverIncidentCount));
+
+        public TelemetryValue<TrackSurfaces> PlayerTrackSurface => new TelemetryValue<TrackSurfaces>(sdk, nameof(PlayerTrackSurface));
+
+        public TelemetryValue<int> PlayerCarIdx => new TelemetryValue<int>(sdk, nameof(PlayerCarIdx));
+
+        #endregion
+
+        public TelemetryValue<int> SessionLapsRemainingEx => new TelemetryValue<int>(sdk, nameof(SessionLapsRemainingEx));
+
+        public TelemetryValue<int> SessionLapsRemaining => new TelemetryValue<int>(sdk, nameof(SessionLapsRemaining));
+
+        public TelemetryValue<float> LapLastLapTime => new TelemetryValue<float>(sdk, nameof(LapLastLapTime));
+
+        public TelemetryValue<float> LapCurrentLapTime => new TelemetryValue<float>(sdk, nameof(LapCurrentLapTime));
 
         public TelemetryValue<float> LapLastNLapTime
             => new TelemetryValue<float>(sdk, "LapLastNLapTime");

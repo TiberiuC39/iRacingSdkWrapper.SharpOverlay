@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using iRacingSdkWrapper.Bitfields;
 using iRSDKSharp;
-using iRacingSdkWrapper.Bitfields;
+using System;
 
 namespace iRacingSdkWrapper
 {

@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
 namespace iRacingSdkWrapper.Utilities
 {
-    public class JsonNumericConverter : JsonConverter<double>
+    public class JsonDoubleConverter : JsonConverter<double>
     {
         private readonly string _pattern;
         private readonly Regex _regex;
 
-        public JsonNumericConverter()
-        {
-            _pattern = @"(\d+\.?\d*)";
+        public JsonDoubleConverter()
+        { 
+            var decimalSeparator = Regex.Escape(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+            _pattern = $@"(\d+\{decimalSeparator}?\d*)";
             _regex = new Regex(_pattern);
         }
 
@@ -45,6 +48,5 @@ namespace iRacingSdkWrapper.Utilities
         {
             writer.WriteNumberValue(value);
         }
-
     }
 }

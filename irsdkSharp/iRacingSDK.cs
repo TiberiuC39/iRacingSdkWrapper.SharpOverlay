@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.IO.MemoryMappedFiles;
 
 namespace iRSDKSharp
 {
@@ -49,6 +48,29 @@ namespace iRSDKSharp
 
     public class iRacingSDK
     {
+        public iRacingSDK()
+        {            
+        }
+        public iRacingSDK(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("The specified file could not be found.", filePath);
+            }
+
+            using (iRacingFile = MemoryMappedFile.CreateFromFile(filePath, FileMode.Open, mapName: null, capacity: 0, MemoryMappedFileAccess.Read))
+            {
+                FileMapView = iRacingFile.CreateViewAccessor(offset: 0, size: 0, MemoryMappedFileAccess.Read);
+            }
+
+            VarHeaderSize = Marshal.SizeOf(typeof(VarHeader));
+
+            Header = new CiRSDKHeader(FileMapView);
+            GetVarHeaders();
+
+            IsInitialized = true;
+        }
+
         //VarHeader offsets
         public const int VarOffsetOffset = 4;
         public const int VarCountOffset = 8;
@@ -56,7 +78,6 @@ namespace iRSDKSharp
         public const int VarDescOffset = 48;
         public const int VarUnitOffset = 112;
         public int VarHeaderSize = 144;
-
 
         public bool IsInitialized = false;
 
@@ -73,19 +94,23 @@ namespace iRSDKSharp
 
             try
             {
-                iRacingFile = MemoryMappedFile.OpenExisting(Defines.MemMapFileName);
-                FileMapView = iRacingFile.CreateViewAccessor();
-                
+                if (FileMapView == null)
+                {
+                    
+                    iRacingFile = MemoryMappedFile.OpenExisting(Defines.MemMapFileName);
+                    FileMapView = iRacingFile.CreateViewAccessor();
+                }
+
                 VarHeaderSize = Marshal.SizeOf(typeof(VarHeader));
 
                 var hEvent = OpenEvent(Defines.DesiredAccess, false, Defines.DataValidEventName);
-                var are = new AutoResetEvent(false);
-                are.Handle = hEvent;
+                var autoResetEvent = new AutoResetEvent(false);
+                autoResetEvent.Handle = hEvent;
 
-                var wh = new WaitHandle[1];
-                wh[0] = are;
+                var waitHandle = new WaitHandle[1];
+                waitHandle[0] = autoResetEvent;
 
-                WaitHandle.WaitAny(wh);
+                WaitHandle.WaitAny(waitHandle);
 
                 Header = new CiRSDKHeader(FileMapView);
                 GetVarHeaders();

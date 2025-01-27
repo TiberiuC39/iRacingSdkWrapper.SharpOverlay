@@ -16,16 +16,16 @@ namespace iRacingSdkWrapper.JsonModels
         public string Skies { get; set; }
         public string WindDirection { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double WindSpeed { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double WeatherTemp { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double RelativeHumidity { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double FogLevel { get; set; }
         public string TimeOfDay { get; set; }
         public string Date { get; set; }

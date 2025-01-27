@@ -8,49 +8,49 @@ namespace iRacingSdkWrapper.JsonModels
         public string TrackName { get; set; }
         public int TrackID { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackLength { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackLengthOfficial { get; set; }
         public string TrackDisplayName { get; set; }
         public string TrackDisplayShortName { get; set; }
         public string TrackConfigName { get; set; }
         public string TrackCity { get; set; }
         public string TrackCountry { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackAltitude { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackLatitude { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackLongitude { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackNorthOffset { get; set; }
         public int TrackNumTurns { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackPitSpeedLimit { get; set; }
         public string TrackType { get; set; }
         public string TrackDirection { get; set; }
         public string TrackWeatherType { get; set; }
         public string TrackSkies { get; set; }
 
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackSurfaceTemp { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackAirTemp { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackAirPressure { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackWindVel { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackWindDir { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackRelativeHumidity { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackFogLevel { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackPrecipitation { get; set; }
-        [JsonConverter(typeof(JsonNumericConverter))]
+        [JsonConverter(typeof(JsonDoubleConverter))]
         public double TrackCleanup { get; set; }
         public int TrackDynamicTrack { get; set; }
         public string TrackVersion { get; set; }
