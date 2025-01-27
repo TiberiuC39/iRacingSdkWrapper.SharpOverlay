@@ -15,7 +15,7 @@ namespace iRacingSdkWrapper.Utilities
         { 
             var decimalSeparator = Regex.Escape(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
-            _pattern = $@"(\d+\{decimalSeparator}?\d*)";
+            _pattern = $@"(\d+{decimalSeparator}?\d*)";
             _regex = new Regex(_pattern);
         }
 
