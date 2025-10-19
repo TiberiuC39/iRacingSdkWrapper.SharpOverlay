@@ -12,14 +12,14 @@ namespace iRacingSdkWrapper
     {
         public SessionInfo()
         {
-            
+
         }
         public SessionInfo(string jsonSessionInfo, double time)
         {
             var sessionInfo = JsonSerializer.Deserialize<SessionInfo>(jsonSessionInfo, new JsonSerializerOptions()
             {
                 NumberHandling = JsonNumberHandling.AllowReadingFromString,
-                
+
             });
 
             WeekendInfo = sessionInfo.WeekendInfo;

@@ -1,12 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "OeS/+bqOSHo=",
+  "dgSpecHash": "QyRZQ9t6WoU=",
   "success": true,
-  "projectFilePath": "E:\\iR SDK\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
+  "projectFilePath": "F:\\iRacingSdkWrapper.SharpOverlay\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\curti\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\curti\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
-    "C:\\Users\\curti\\.nuget\\packages\\yamldotnet\\16.1.0\\yamldotnet.16.1.0.nupkg.sha512"
+    "C:\\Users\\curti\\.nuget\\packages\\yamldotnet\\16.1.0\\yamldotnet.16.1.0.nupkg.sha512",
+    "C:\\Users\\curti\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\curti\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\curti\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\curti\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.20\\microsoft.netcore.app.host.win-x64.7.0.20.nupkg.sha512"
   ],
   "logs": []
 }

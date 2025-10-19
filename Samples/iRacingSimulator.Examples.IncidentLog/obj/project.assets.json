@@ -215,19 +215,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\curti\\.nuget\\packages\\": {}
+    "C:\\Users\\curti\\.nuget\\packages\\": {},
+    "E:\\VSSDKs\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\iR SDK\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
+      "projectUniqueName": "F:\\iRacingSdkWrapper.SharpOverlay\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
       "projectName": "iRacingSimulator.Examples.IncidentLog",
-      "projectPath": "E:\\iR SDK\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
+      "projectPath": "F:\\iRacingSdkWrapper.SharpOverlay\\Samples\\iRacingSimulator.Examples.IncidentLog\\iRacingSimulator.Examples.IncidentLog.csproj",
       "packagesPath": "C:\\Users\\curti\\.nuget\\packages\\",
-      "outputPath": "E:\\iR SDK\\Samples\\iRacingSimulator.Examples.IncidentLog\\obj\\",
+      "outputPath": "F:\\iRacingSdkWrapper.SharpOverlay\\Samples\\iRacingSimulator.Examples.IncidentLog\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "E:\\VSSDKs\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\curti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -235,18 +240,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "E:\\iR SDK\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
-              "projectPath": "E:\\iR SDK\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
+            "F:\\iRacingSdkWrapper.SharpOverlay\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+              "projectPath": "F:\\iRacingSdkWrapper.SharpOverlay\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
             },
-            "E:\\iR SDK\\iRacingSimulator\\iRacingSimulator.csproj": {
-              "projectPath": "E:\\iR SDK\\iRacingSimulator\\iRacingSimulator.csproj"
+            "F:\\iRacingSdkWrapper.SharpOverlay\\iRacingSimulator\\iRacingSimulator.csproj": {
+              "projectPath": "F:\\iRacingSdkWrapper.SharpOverlay\\iRacingSimulator\\iRacingSimulator.csproj"
             }
           }
         }
@@ -260,7 +264,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net7.0-windows7.0": {
@@ -286,6 +291,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -294,7 +317,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

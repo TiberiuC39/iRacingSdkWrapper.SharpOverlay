@@ -18,6 +18,7 @@ namespace iRacingSdkWrapper
         #region Fields
 
         internal readonly iRacingSDK sdk;
+        private readonly TelemetryInfo _telemetryInfo;
         private readonly SynchronizationContext context;
         private int waitTime;
         private Mutex readMutex;
@@ -48,6 +49,8 @@ namespace iRacingSdkWrapper
             this.Chat = new ChatControl(this);
             this.Textures = new TextureControl(this);
             this.TelemetryRecording = new TelemetryRecordingControl(this);
+
+            _telemetryInfo = new TelemetryInfo(this.sdk);
         }
 
         public SdkWrapper(string filePath)
@@ -69,7 +72,7 @@ namespace iRacingSdkWrapper
             this.Textures = new TextureControl(this);
             this.TelemetryRecording = new TelemetryRecordingControl(this);
 
-            Start();
+            _telemetryInfo = new TelemetryInfo(this.sdk);
         }
 
         #region Properties
@@ -112,8 +115,8 @@ namespace iRacingSdkWrapper
                     throw new ArgumentOutOfRangeException("TelemetryUpdateFrequency cannot be more than 60.");
 
                 _TelemetryUpdateFrequency = value;
-                
-                waitTime = (int) Math.Floor(1000f/value) - 1;
+
+                waitTime = (int)Math.Floor(1000f / value) - 1;
             }
         }
 
@@ -170,7 +173,34 @@ namespace iRacingSdkWrapper
 
         #region Methods
 
-        /// <summary>
+        public bool ProcessTelemetryFrame()
+        {
+            if (!sdk.MoveNext())
+            {
+                return false;
+            }
+
+            // Get the session time (in seconds) of this update
+            var time = (double)sdk.GetData("SessionTime");
+
+            // Raise the TelemetryUpdated event and pass along the lap info and session time
+            var telArgs = new TelemetryUpdatedEventArgs(_telemetryInfo, time);
+            this.RaiseEvent(OnTelemetryUpdated, telArgs);
+
+            // Is the session info updated?
+            // Get the session info string
+            var yamlSessionInfo = sdk.GetSessionInfo();
+
+            string jsonSessionInfo = TransformIntoJSON(yamlSessionInfo);
+
+            // Raise the SessionInfoUpdated event and pass along the session info and session time.
+            var sessionArgs = new SessionUpdatedEventArgs(jsonSessionInfo, time);
+            this.RaiseEvent(OnSessionUpdated, sessionArgs);
+
+            return true;
+        }
+
+        /// <summary;
         /// Connects to iRacing and starts the main loop in a background thread.
         /// </summary>
         public void Start()
@@ -227,7 +257,7 @@ namespace iRacingSdkWrapper
 
             this.RaiseEvent(OnSessionUpdated, sessionArgs);
         }
-        
+
         private object TryGetSessionNum()
         {
             try
@@ -275,18 +305,19 @@ namespace iRacingSdkWrapper
                         Debug.WriteLine("Session num too many attempts");
                         continue;
                     }
-                    
+
                     // Parse out your own driver Id
                     if (this.DriverId == -1)
                     {
                         _DriverId = (int)sdk.GetData("PlayerCarIdx");
+                        Debug.WriteLine($"DriverId: {_DriverId}");
                     }
 
                     // Get the session time (in seconds) of this update
-                    var time = (double) sdk.GetData("SessionTime");
+                    var time = (double)sdk.GetData("SessionTime");
 
                     // Raise the TelemetryUpdated event and pass along the lap info and session time
-                    var telArgs = new TelemetryUpdatedEventArgs(new TelemetryInfo(sdk), time);
+                    var telArgs = new TelemetryUpdatedEventArgs(_telemetryInfo, time);
                     this.RaiseEvent(OnTelemetryUpdated, telArgs);
 
                     // Is the session info updated?
@@ -339,7 +370,7 @@ namespace iRacingSdkWrapper
                     Thread.Sleep(ConnectSleepTime);
                 }
             }
-            
+
             sdk.Shutdown();
             _DriverId = -1;
             _IsConnected = false;
@@ -370,15 +401,6 @@ namespace iRacingSdkWrapper
             {
                 qualifyResults = ((Dictionary<object, object>)yamlObject["QualifyResultsInfo"])?["Results"];
             }
-            
-            //try
-            //{
-            //    qualifyResults = ((Dictionary<object, object>)yamlObject["QualifyResultsInfo"])?["Results"];
-            //}
-            //catch (KeyNotFoundException)
-            //{
-
-            //}            
 
             var sectors = ((Dictionary<object, object>)yamlObject["SplitTimeInfo"])["Sectors"];
 
@@ -414,9 +436,9 @@ namespace iRacingSdkWrapper
 
             string jsonSessionInfo = TransformIntoJSON(sessionInfoString);
 
-            double time = (double) sdk.GetData("SessionTime");
+            double time = (double)sdk.GetData("SessionTime");
 
-            var sessionInfo = new SessionInfo(jsonSessionInfo, time); 
+            var sessionInfo = new SessionInfo(jsonSessionInfo, time);
 
             return sessionInfo;
         }
@@ -428,9 +450,7 @@ namespace iRacingSdkWrapper
         /// <returns>Current telemetry data.</returns>
         public TelemetryInfo GetTelemetryInfoWithoutEvent()
         {
-            var telemetry = new TelemetryInfo(sdk);
-
-            return telemetry;
+            return _telemetryInfo;
         }
 
         #endregion
@@ -545,7 +565,7 @@ namespace iRacingSdkWrapper
             }
 
             public SessionUpdatedEventArgs(SessionInfo sessionInfo)
-                :base(sessionInfo.UpdateTime)
+                : base(sessionInfo.UpdateTime)
             {
                 _SessionInfo = sessionInfo;
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
@@ -49,7 +50,7 @@ namespace iRSDKSharp
     public class iRacingSDK
     {
         public iRacingSDK()
-        {            
+        {
         }
         public iRacingSDK(string filePath)
         {
@@ -68,6 +69,7 @@ namespace iRSDKSharp
             Header = new CiRSDKHeader(FileMapView);
             GetVarHeaders();
 
+            _isFilePlaybackMode = true;
             IsInitialized = true;
         }
 
@@ -86,6 +88,11 @@ namespace iRSDKSharp
 
         public CiRSDKHeader Header = null;
         public Dictionary<string, CVarHeader> VarHeaders = new Dictionary<string, CVarHeader>();
+
+        private bool _isFilePlaybackMode;
+        private int _currentBufferOffset = -1;
+        private int _currentFrameIndex = -1;
+
         //List<CVarHeader> VarHeaders = new List<CVarHeader>();
 
         public bool Startup()
@@ -96,7 +103,6 @@ namespace iRSDKSharp
             {
                 if (FileMapView == null)
                 {
-                    
                     iRacingFile = MemoryMappedFile.OpenExisting(Defines.MemMapFileName);
                     FileMapView = iRacingFile.CreateViewAccessor();
                 }
@@ -113,6 +119,7 @@ namespace iRSDKSharp
                 WaitHandle.WaitAny(waitHandle);
 
                 Header = new CiRSDKHeader(FileMapView);
+
                 GetVarHeaders();
 
                 IsInitialized = true;
@@ -122,6 +129,39 @@ namespace iRSDKSharp
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Executes the frame advancement logic. Returns TRUE if a frame was successfully read.
+        /// </summary>
+        public bool MoveNext()
+        {
+            // 1. Advance the index for the next read
+            _currentFrameIndex++;
+
+            // 2. Calculate the absolute byte position for the start of the next frame
+            int nextBufferOffset = Header.Buffer + (_currentFrameIndex * Header.BufferLength);
+
+            long totalFileSize = FileMapView.Capacity;
+
+            // A simple check: if the start of the next buffer is beyond where the data 
+            // could possibly be, stop. We assume a data buffer must fit entirely before EOF.
+            if (_currentBufferOffset > totalFileSize)
+            {
+                Reset();
+                return false;
+            }
+
+            // Update the current offset
+            _currentBufferOffset = nextBufferOffset;
+
+            return true;
+        }
+
+        public void Reset()
+        {
+            _currentFrameIndex = -1;
+            _currentBufferOffset = 0;
         }
 
         private void GetVarHeaders()
@@ -147,78 +187,79 @@ namespace iRSDKSharp
 
         public object GetData(string name)
         {
-            if(IsInitialized && Header != null)
+            if (IsInitialized && Header != null && VarHeaders.ContainsKey(name))
             {
-                if (VarHeaders.ContainsKey(name))
+                int count = VarHeaders[name].Count;
+                int varOffset = VarHeaders[name].Offset;
+
+                int bufferOffset = _isFilePlaybackMode ? _currentBufferOffset : Header.Buffer;
+
+                if (VarHeaders[name].Type == CVarHeader.VarType.irChar)
                 {
-                    int varOffset = VarHeaders[name].Offset;
-                    int count = VarHeaders[name].Count;
-                    if (VarHeaders[name].Type == CVarHeader.VarType.irChar)
+                    byte[] data = new byte[count];
+                    FileMapView.ReadArray<byte>(bufferOffset + varOffset, data, 0, count);
+                    return System.Text.Encoding.Default.GetString(data).TrimEnd(new char[] { '\0' });
+                }
+                else if (VarHeaders[name].Type == CVarHeader.VarType.irBool)
+                {
+                    if (count > 1)
                     {
-                        byte[] data = new byte[count];
-                        FileMapView.ReadArray<byte>(Header.Buffer + varOffset, data, 0, count);
-                        return System.Text.Encoding.Default.GetString(data).TrimEnd(new char[] { '\0' });
+                        bool[] data = new bool[count];
+                        FileMapView.ReadArray<bool>(bufferOffset + varOffset, data, 0, count);
+                        return data;
                     }
-                    else if (VarHeaders[name].Type == CVarHeader.VarType.irBool)
+                    else
                     {
-                        if (count > 1)
-                        {
-                            bool[] data = new bool[count];
-                            FileMapView.ReadArray<bool>(Header.Buffer + varOffset, data, 0, count);
-                            return data;
-                        }
-                        else
-                        {
-                            return FileMapView.ReadBoolean(Header.Buffer + varOffset);
-                        }
+                        return FileMapView.ReadBoolean(bufferOffset + varOffset);
                     }
-                    else if (VarHeaders[name].Type == CVarHeader.VarType.irInt || VarHeaders[name].Type == CVarHeader.VarType.irBitField)
+                }
+                else if (VarHeaders[name].Type == CVarHeader.VarType.irInt || VarHeaders[name].Type == CVarHeader.VarType.irBitField)
+                {
+                    if (count > 1)
                     {
-                        if (count > 1)
-                        {
-                            int[] data = new int[count];
-                            FileMapView.ReadArray<int>(Header.Buffer + varOffset, data, 0, count);
-                            return data;
-                        }
-                        else
-                        {
-                            return FileMapView.ReadInt32(Header.Buffer + varOffset);
-                        }
+                        int[] data = new int[count];
+                        FileMapView.ReadArray<int>(bufferOffset + varOffset, data, 0, count);
+                        return data;
                     }
-                    else if (VarHeaders[name].Type == CVarHeader.VarType.irFloat)
+                    else
                     {
-                        if (count > 1)
-                        {
-                            float[] data = new float[count];
-                            FileMapView.ReadArray<float>(Header.Buffer + varOffset, data, 0, count);
-                            return data;
-                        }
-                        else
-                        {
-                            return FileMapView.ReadSingle(Header.Buffer + varOffset);
-                        }
+                        return FileMapView.ReadInt32(bufferOffset + varOffset);
                     }
-                    else if (VarHeaders[name].Type == CVarHeader.VarType.irDouble)
+                }
+                else if (VarHeaders[name].Type == CVarHeader.VarType.irFloat)
+                {
+                    if (count > 1)
                     {
-                        if (count > 1)
-                        {
-                            double[] data = new double[count];
-                            FileMapView.ReadArray<double>(Header.Buffer + varOffset, data, 0, count);
-                            return data;
-                        }
-                        else
-                        {
-                            return FileMapView.ReadDouble(Header.Buffer + varOffset);
-                        }
+                        float[] data = new float[count];
+                        FileMapView.ReadArray<float>(bufferOffset + varOffset, data, 0, count);
+                        return data;
+                    }
+                    else
+                    {
+                        return FileMapView.ReadSingle(bufferOffset + varOffset);
+                    }
+                }
+                else if (VarHeaders[name].Type == CVarHeader.VarType.irDouble)
+                {
+                    if (count > 1)
+                    {
+                        double[] data = new double[count];
+                        FileMapView.ReadArray<double>(bufferOffset + varOffset, data, 0, count);
+                        return data;
+                    }
+                    else
+                    {
+                        return FileMapView.ReadDouble(bufferOffset + varOffset);
                     }
                 }
             }
+
             return null;
         }
 
         public string GetSessionInfo()
         {
-            if(IsInitialized && Header != null)
+            if (IsInitialized && Header != null)
             {
                 byte[] data = new byte[Header.SessionInfoLength];
                 FileMapView.ReadArray<byte>(Header.SessionInfoOffset, data, 0, Header.SessionInfoLength);
@@ -282,7 +323,7 @@ namespace iRSDKSharp
 
         [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr OpenEvent(UInt32 dwDesiredAccess, Boolean bInheritHandle, String lpName);
-        
+
         public int MakeLong(short lowPart, short highPart)
         {
             return (int)(((ushort)lowPart) | (uint)(highPart << 16));
@@ -349,7 +390,7 @@ namespace iRSDKSharp
         //8 bytes: offset = 24
         public int numVars;
         public int varHeaderOffset;
-        
+
         //16 bytes: offset = 32
         public int numBuf;
         public int bufLen;
